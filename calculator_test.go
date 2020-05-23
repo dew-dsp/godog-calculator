@@ -30,6 +30,7 @@ func TestCalculator_Add(t *testing.T) {
 func TestCalculator_Sub(t *testing.T) {
 	var subResults = []IndexTests{
 		{20, 5, 15},
+		{-2, -3, 1},
 	}
 
 	for _, test := range subResults {
@@ -43,8 +44,8 @@ func TestCalculator_Sub(t *testing.T) {
 func TestCalculator_Multiply(t *testing.T) {
 	var multiplyResults = []IndexTests{
 		{2, 5, 10},
-		{-2, 5, -10},
-		{2, -4, -8},
+		{10, -8, -80},
+		{-2, -4, 8},
 	}
 
 	for _, test := range multiplyResults {
@@ -70,11 +71,20 @@ func TestCalculator_Press(t *testing.T) {
 	var pressResults = []pressTests{
 		{3, 3},
 		{4, 4},
+		{0, 0},
 	}
-
+	c := new(Calculator)
 	for _, test := range pressResults {
-		c := new(Calculator)
 		c.Press(test.x)
 		assert.Equal(t, test.expected, c.Result())
 	}
+}
+
+func TestBla(t *testing.T) {
+	c := new(Calculator)
+	c.Press(5)
+	c.Press(3)
+	c.Add(4)
+
+	assert.Equal(t, 7, c.Result())
 }

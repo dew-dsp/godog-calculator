@@ -22,7 +22,7 @@ func (c *Calculator) Multiply(x int) {
 
 // Press function for Calculator
 func (c *Calculator) Press(x int) {
-	c.result += x
+	c.result = x
 }
 
 // Clear function for Calculator

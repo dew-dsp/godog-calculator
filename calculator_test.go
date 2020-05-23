@@ -6,35 +6,75 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+type IndexTests struct {
+	start    int
+	x        int
+	expected int
+}
+
 func TestCalculator_Add(t *testing.T) {
-	c := new(Calculator)
-	c.Press(10)
-	c.Add(10)
-	assert.Equal(t, 20, c.Result())
+	var addResults = []IndexTests{
+		{1, 2, 3},
+		{5, 3, 8},
+		{0, 2, 2},
+	}
+
+	for _, test := range addResults {
+		c := new(Calculator)
+		c.Press(test.start)
+		c.Add(test.x)
+		assert.Equal(t, test.expected, c.Result())
+	}
 }
 
 func TestCalculator_Sub(t *testing.T) {
-	c := new(Calculator)
-	c.Press(30)
-	c.Sub(10)
-	assert.Equal(t, 20, c.Result())
+	var subResults = []IndexTests{
+		{20, 5, 15},
+	}
+
+	for _, test := range subResults {
+		c := new(Calculator)
+		c.Press(test.start)
+		c.Sub(test.x)
+		assert.Equal(t, test.expected, c.Result())
+	}
 }
 
 func TestCalculator_Multiply(t *testing.T) {
-	c := new(Calculator)
-	c.Press(2)
-	c.Multiply(4)
-	assert.Equal(t, 8, c.Result())
-}
+	var multiplyResults = []IndexTests{
+		{2, 5, 10},
+		{-2, 5, -10},
+		{2, -4, -8},
+	}
 
-func TestCalculator_Press(t *testing.T) {
-	c := new(Calculator)
-	c.Press(3)
-	assert.Equal(t, 3, c.Result())
+	for _, test := range multiplyResults {
+		c := new(Calculator)
+		c.Press(test.start)
+		c.Multiply(test.x)
+		assert.Equal(t, test.expected, c.Result())
+	}
 }
 
 func TestCalculator_Clear(t *testing.T) {
 	c := new(Calculator)
 	c.Clear()
 	assert.Equal(t, 0, c.Result())
+}
+
+func TestCalculator_Press(t *testing.T) {
+	type pressTests struct {
+		x        int
+		expected int
+	}
+
+	var pressResults = []pressTests{
+		{3, 3},
+		{4, 4},
+	}
+
+	for _, test := range pressResults {
+		c := new(Calculator)
+		c.Press(test.x)
+		assert.Equal(t, test.expected, c.Result())
+	}
 }

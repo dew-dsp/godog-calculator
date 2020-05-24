@@ -1,4 +1,4 @@
-module github.com/sitthakarn/go-calculator
+module github.com/dew-dsp/go-calculator
 
 go 1.14
 

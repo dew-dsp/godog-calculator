@@ -7,7 +7,7 @@ import (
 	"github.com/cucumber/godog"
 	"github.com/cucumber/godog/colors"
 
-	calc "github.com/sitthakarn/godog-tutorial"
+	calc "github.com/dew-dsp/godog-calculator"
 )
 
 var opts = godog.Options{

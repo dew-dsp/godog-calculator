@@ -1,25 +1,42 @@
 package calc_test
 
 import (
+	"flag"
+	"os"
+
+	"github.com/cucumber/godog"
+	"github.com/cucumber/godog/colors"
+
 	calc "github.com/sitthakarn/godog-tutorial"
 )
 
-type CalcSuite struct{
+var opts = godog.Options{
+	Output: colors.Colored(os.Stdout),
+	Format: "progress", // can define default values
+}
+
+func init() {
+	godog.BindFlags("godog.", flag.CommandLine, &opts)
+}
+
+type CalcSuite struct {
 	*godog.Suite
 	calc *calc.Calculator
 }
 
 func (cs *CalcSuite) calculatorIsCleared() error {
-	cs
-	return godog.ErrPending
+	cs.calc.Clear()
+	return nil
 }
 
-func iPress(arg1 int) error {
-	return godog.ErrPending
+func (cs *CalcSuite) iPress(arg1 int) error {
+	cs.calc.Press(arg1)
+	return nil
 }
 
-func iAdd(arg1 int) error {
-	return godog.ErrPending
+func (cs *CalcSuite) iAdd(arg1 int) error {
+	cs.calc.Add(arg1)
+	return nil
 }
 
 func iSubtract(arg1 int) error {
@@ -30,10 +47,14 @@ func theResultShouldBe(arg1 int) error {
 	return godog.ErrPending
 }
 
-func FeatureContext(s *godog.Suite) {
-	s.Step(`^calculator is cleared$`, calculatorIsCleared)
-	s.Step(`^i press (\d+)$`, iPress)
-	s.Step(`^i add (\d+)$`, iAdd)
-	s.Step(`^i subtract (\d+)$`, iSubtract)
-	s.Step(`^the result should be (\d+)$`, theResultShouldBe)
+func FeatureContext(suite *godog.Suite) {
+	s := CalcSuite{
+		calc:  new(calc.Calculator),
+		Suite: suite,
+	}
+	suite.Step(`^calculator is cleared$`, s.calculatorIsCleared())
+	suite.Step(`^i press (\d+)$`, s.iPress(2))
+	suite.Step(`^i add (\d+)$`, s.iAdd(5))
+	suite.Step(`^i subtract (\d+)$`, iSubtract)
+	suite.Step(`^the result should be (\d+)$`, theResultShouldBe)
 }

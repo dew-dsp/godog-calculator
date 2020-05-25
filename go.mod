@@ -1,4 +1,4 @@
-module github.com/dew-dsp/godog-calculator
+module github.com/dewdsp/godog-calculator
 
 go 1.14
 
